@@ -57,7 +57,20 @@ stocks.forEach(stock => stock.values.reverse())
         }]
       }  
     })
-    
+    //average
+    new Chart(averagePriceChartCanvas.getContext('2d'), {
+        type: 'pie',
+        data: {
+            labels: stocks.map(stock => stock.meta.symbol),
+            datasets: [{
+                label: 'Average',
+                data: stocks.map(stock => (calculateAverage(stock.values))),
+                backgroundColor: stocks.map( stock => (getColor(stock.meta.symbol))),
+                borderColor: stocks.map( stock => (getColor(stock.meta.symbol))),
+            
+        }]
+      }  
+    })
       
 
     
@@ -70,7 +83,14 @@ stocks.forEach(stock => stock.values.reverse())
         })
         return highest
     }
+    function calculateAverage(values) {
+        let average = 0
+        values.forEach(value => {
+            average = parseFloat(value.high) 
+        })
+        return average 
+    }
 }
 console.log(Chart);
-//fe1dcefef44145ae82198e86b2ab52bc don't forget to remove
+// don't forget to remove key
 main()
